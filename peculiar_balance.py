@@ -35,45 +35,40 @@ Inputs:
 Output:
     (string list) ["L", "-", "R"]
 """
+from math import log
 
+def element(weight, index):
+	prev = 0
+	for i in range(index):
+		prev += 3 ** i
+	diff = weight - prev
+	pos = diff % (3 ** (index + 1)) - 1 
+	if  pos >= 0 and pos < 3 ** index:
+		return "R"
+	elif pos >= 3 ** index and pos < 2 * 3 ** index:
+		return "L"
+	else:
+		return "-"
 def answer(x):
 	solution = []
 	weight = 1
-	if x % 3 == 0:
-		mult = x / 3
-		solution.extend(["-"] * mult)
-		# while weight != x:
-		# 	solution.append("-")
-		# 	weight = weight * 3
-		solution.append("R")
-	elif x % 3 == 1:
-		solution.append("R")
-		mult = x // 3 - 1
-		solution.extend(["-"] * mult)
-		# weight = weight * 3
-		# while weight != x - 1:
-		# 	solution.append("-")
-		# 	weight = weight * 3
-		solution.append("R")
-	elif x % 3 == 2:
-		solution.append("L")
-		mult = x // 3 - 1
-		solution.extend(["-"] * mult)
-		# weight = weight * 3
-		# while weight != x + 1:
-		# 	solution.append("-")
-		# 	weight = weight * 3
-		solution.append("R")
+	n = int(log(x * 2, 3)) + 1
+	for i in range(n):
+		j = element(x, i)
+		solution.append(j)
 	return solution
 
 
-def test():
-	t1 = 2
-	t2 = 8
-	assert ["L", "R"] == answer(t1)
-	assert ["L", "-", "R"] == answer(t2)
+# def test():
+# 	t1 = 2
+# 	t2 = 8
+# 	assert ["L", "R"] == answer2(t1)
+# 	assert ["L", "-", "R"] == answer2(t2)
 
-	t3 = 10
-	assert ["R", "-", "R"] == answer(t3)
+# 	t3 = 10
+# 	assert ["R", "-", "R"] == answer2(t3)
 
-test()
+# test()
+for i in range(1, 100):
+	answer(i)
+
