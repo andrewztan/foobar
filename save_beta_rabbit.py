@@ -82,8 +82,6 @@ def answer(food, grid):
 	heapq.heappush(pq, Node(food, (0,0)))
 	while len(pq) > 0:
 		top = heapq.heappop(pq)
-		if top.food < 0:
-			continue
 		if top.position == (col_len - 1, row_len - 1):
 			return top.food
 
