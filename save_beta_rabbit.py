@@ -37,5 +37,37 @@ Inputs:
 Output:
     (int) 1
 """
+def all_but_left(grid):
+	new_grid = []
+	for i in range(len(grid)):
+		new_grid.append(grid[i][1:])
+	return new_grid
 
 def answer(food, grid):
+	row_len = len(grid[0])
+	col_len = len(grid)
+	if  row_len == 1 and col_len == 1:
+		return food
+	a, b = -1, -1
+	# move down
+	if col_len > 1:
+		a = answer(food - grid[1][0], grid[1:])
+	# move right
+	if row_len > 1:
+		b = answer(food - grid[0][1], all_but_left(grid))
+
+	if a < 0 and b < 0:
+		return -1
+	elif a < 0:
+		return b
+	elif b < 0:
+		return a
+	else:
+		return min(a, b)
+
+def test():
+	print(answer(7, [[0, 2, 5], [1, 1, 3], [2, 1, 1]]))
+	assert 0 == answer(7, [[0, 2, 5], [1, 1, 3], [2, 1, 1]])
+	print(answer(12, [[0, 2, 5], [1, 1, 3], [2, 1, 1]]))
+	assert 1 == answer(12, [[0, 2, 5], [1, 1, 3], [2, 1, 1]])
+test()
