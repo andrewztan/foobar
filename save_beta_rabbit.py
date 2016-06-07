@@ -37,33 +37,70 @@ Inputs:
 Output:
     (int) 1
 """
-def all_but_left(grid):
-	new_grid = []
-	for i in range(len(grid)):
-		new_grid.append(grid[i][1:])
-	return new_grid
+# def all_but_left(grid):
+# 	new_grid = []
+# 	for i in range(len(grid)):
+# 		new_grid.append(grid[i][1:])
+# 	return new_grid
+
+# def answer(food, grid):
+# 	row_len = len(grid[0])
+# 	col_len = len(grid)
+# 	if  row_len == 1 and col_len == 1:
+# 		return food
+# 	a, b = -1, -1
+# 	# move down
+# 	if col_len > 1:
+# 		a = answer(food - grid[1][0], grid[1:])
+# 	# move right
+# 	if row_len > 1:
+# 		b = answer(food - grid[0][1], all_but_left(grid))
+
+# 	if a < 0 and b < 0:
+# 		return -1
+# 	elif a < 0:
+# 		return b
+# 	elif b < 0:
+# 		return a
+# 	else:
+# 		return min(a, b)
+
+
+import heapq
+
+class Node:
+	def __init__(self, food, position):
+		self.food = food
+		self.position = position
+	def __lt__(self, other):
+		return self.food < other.food
 
 def answer(food, grid):
-	row_len = len(grid[0])
 	col_len = len(grid)
-	if  row_len == 1 and col_len == 1:
-		return food
-	a, b = -1, -1
-	# move down
-	if col_len > 1:
-		a = answer(food - grid[1][0], grid[1:])
-	# move right
-	if row_len > 1:
-		b = answer(food - grid[0][1], all_but_left(grid))
+	row_len = len(grid[0])
+	pq = []
+	heapq.heappush(pq, Node(food, (0,0)))
+	while len(pq) > 0:
+		top = heapq.heappop(pq)
+		if top.food < 0:
+			continue
+		if top.position == (col_len - 1, row_len - 1):
+			return top.food
 
-	if a < 0 and b < 0:
-		return -1
-	elif a < 0:
-		return b
-	elif b < 0:
-		return a
-	else:
-		return min(a, b)
+		x = top.position[0]
+		y = top.position[1]
+		# move down
+		if x + 1 < col_len:
+			new_food = top.food - grid[x + 1][y]
+			if new_food >= 0:
+				heapq.heappush(pq, Node(new_food, (x + 1, y)))
+		# move right 
+		if y + 1 < row_len:
+			new_food = top.food - grid[x][y + 1]
+			if new_food >= 0:
+				heapq.heappush(pq, Node(new_food, (x, y + 1)))
+
+	return -1
 
 def test():
 	print(answer(7, [[0, 2, 5], [1, 1, 3], [2, 1, 1]]))
