@@ -14,11 +14,6 @@ Write a function answer(words) which, given a list of words sorted alphabeticall
 
 The list will contain at least 1 and no more than 50 words, and each word will consist of at least 1 and no more than 50 lowercase letters [a-z]. It is guaranteed that a total ordering can be developed from the input provided (i.e. given any two distinct letters, you can tell which is greater), and so the answer will exist and be unique.
 
-Languages
-=========
-
-To provide a Python solution, edit solution.py
-To provide a Java solution, edit solution.java
 
 Test cases
 ==========
@@ -33,3 +28,9 @@ Inputs:
 Output:
     (string) "bac"
 """
+
+def answer(words):
+	
+
+
+
