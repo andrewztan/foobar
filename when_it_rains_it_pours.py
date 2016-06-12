@@ -82,7 +82,6 @@ def answer(heights):
 
     copy = heights[:]
     clean = copy[start_index:end_index + 1]
-    # max_index = find_max_index(heights, start_index, end_index + 1)
 
     left = [clean[0]]
     right = [0]
@@ -101,17 +100,6 @@ def answer(heights):
     # print(water)
     return sum(water) 
 
-
-"""Find the max index in a list from indexes start (inclusive) to end (exclusive)"""
-def find_max_index(lst, start, end):    
-    index = start
-    largest = lst[start]
-    for i in range(1, end):
-        if lst[i] > largest:
-            index = i
-            largest = lst[i]
-    return index
-
 def find_start_index(lst):
     for i in range(len(lst) - 1):
         if lst[i] > lst[i + 1]:
@@ -124,13 +112,13 @@ def find_end_index(lst):
             return i
     return -1
 
-
-"""Generate a random list (building) with length l and max value h"""
 def generate_list(l, h):
+    """Generate a random list (building) with length l and max value h"""
     lst = []
     for i in range(l):
         lst.append(random.randrange(0, h + 1))
     return lst
+
 
 def test():
     l1 = [1, 2, 3, 4, 5]
@@ -143,6 +131,7 @@ def test():
     assert answer(l3) == 4
     assert answer(l4) == 12
     assert answer(l5) == 1001
+
 
 test()
 
