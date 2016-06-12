@@ -47,8 +47,24 @@ def combine(lst1, lst2):
 
 	while i < len(lst1) and j < len(lst2):
 		if lst1[i] in lst2:
-			if lst2.lst1[i] >
+			if lst2.lst1[i] < j:
+				combined[k] == lst1[i]
+				i += 1
+			else:
+				combined[k] == lst2[j]
+				j += 1
+			k += 1
 		elif lst2[j] in lst1:
+			if lst1.lst2[i] < i:
+				combined[k] == lst2[j]
+				j += 1
+			else:
+				combined[k] == lst1[i]
+				i += 1
+			k += 1
+		else:
+			i += 1
+			j += 1
 
 	if i < len(lst1):
 		combined += lst1[i:]
