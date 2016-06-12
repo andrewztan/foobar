@@ -53,111 +53,98 @@ Output:
 """
 
 def answer(heights):
-	"""
-	Uses 3 arrays
-	1. left: Array holding the max value of everything to the left of the index including the index
-	2. right: Array holding the max value of everything to the right of the index
-	3. water: Array holding the amount of water at that index
-	Solution is the sum of Array 3
+    """
+    Uses 3 arrays
+    1. left: Array holding the max value of everything to the left of the index including the index
+    2. right: Array holding the max value of everything to the right of the index
+    3. water: Array holding the amount of water at that index
+    Solution is the sum of Array 3
 
-	Example:
-	heights =     [6, 8, 6, 6, 9, 7, 10, 0, 2, 4] -> 12
-	left =  [6, 8, 8, 8, 9, 9, 10, 10, 10, 10]
-	right = [8, 6, 6, 9, 7, 10, 0,  2,  4, null]
-	water = [0, 0, 2, 2, 0, 2, 0,  4,  2,  0]
+    Example:
+    heights = [6, 8, 6, 6, 9, 7, 10, 0, 2, 4] -> 12
+    left =    [6, 8, 8, 8, 9, 9, 10, 10, 10, 10]
+    right =   [8, 6, 6, 9, 7, 10, 0,  2,  4, null]
+    water =   [0, 0, 2, 2, 0, 2, 0,  4,  2,  0]
 
-	clean = [8,  6,  6,  9,  7,  10, 0,  2,  4] -> 12
-	left =  [8,  8,  8,  9,  9,  10, 10, 10, 10]
-	right = [10, 10, 10, 10, 10, 4,  4,  4,  0]
-	water = [0,  2,  2,  0,  2,  0,  4,  2,  0]
+    clean = [8,  6,  6,  9,  7,  10, 0,  2,  4] -> 12
+    left =  [8,  8,  8,  9,  9,  10, 10, 10, 10]
+    right = [10, 10, 10, 10, 10, 4,  4,  4,  0]
+    water = [0,  2,  2,  0,  2,  0,  4,  2,  0]
+    """
 
-	"""
+    if len(heights) <= 2:
+        return 0
 
-	if len(heights) <= 2:
-		return 0
+    start_index = find_start_index(heights)
+    end_index = find_end_index(heights)
+    if start_index == -1 or end_index == -1 or start_index >= end_index:
+        return 0
 
-	start_index = find_start_index(heights)
-	end_index = find_end_index(heights)
-	if start_index == -1 or end_index == -1 or start_index >= end_index:
-		return 0
+    copy = heights[:]
+    clean = copy[start_index:end_index + 1]
+    # max_index = find_max_index(heights, start_index, end_index + 1)
 
-	copy = heights[:]
-	clean = copy[start_index:end_index + 1]
-	# max_index = find_max_index(heights, start_index, end_index + 1)
+    left = [clean[0]]
+    right = [0]
+    for i in range(1, len(clean)):
+        left.append(max(left[i - 1], clean[i]))
+        right = [max(right[0], clean[-i])] + right
+    # print(left)
+    # print(right)
 
-	left = [clean[0]]
-	right = [0]
-	for i in range(1, len(clean)):
-		left.append(max(left[i - 1], clean[i]))
-		right = [max(right[0], clean[-i])] + right
-	print(left)
-	print(right)
-
-	water = []
-	for i in range(len(left)):
-		if clean[i] < left[i] and clean[i] < right[i]:
-			water.append(min(left[i], right[i]) - clean[i])
-		else:
-			water.append(0)
-	print(water)
-	return sum(water) 
+    water = []
+    for i in range(len(left)):
+        if clean[i] < left[i] and clean[i] < right[i]:
+            water.append(min(left[i], right[i]) - clean[i])
+        else:
+            water.append(0)
+    # print(water)
+    return sum(water) 
 
 
 """Find the max index in a list from indexes start (inclusive) to end (exclusive)"""
-def find_max_index(lst, start, end):	
-	index = start
-	largest = lst[start]
-	for i in range(1, end):
-		if lst[i] > largest:
-			index = i
-			largest = lst[i]
-	return index
+def find_max_index(lst, start, end):    
+    index = start
+    largest = lst[start]
+    for i in range(1, end):
+        if lst[i] > largest:
+            index = i
+            largest = lst[i]
+    return index
 
 def find_start_index(lst):
-	for i in range(len(lst) - 1):
-		if lst[i] > lst[i + 1]:
-			return i
-	return -1
+    for i in range(len(lst) - 1):
+        if lst[i] > lst[i + 1]:
+            return i
+    return -1
 
 def find_end_index(lst):
-	for i in range(len(lst) - 1, 0, -1):
-		if lst[i] > lst[i - 1]:
-			return i
-	return -1
+    for i in range(len(lst) - 1, 0, -1):
+        if lst[i] > lst[i - 1]:
+            return i
+    return -1
 
 
 """Generate a random list (building) with length l and max value h"""
 def generate_list(l, h):
-	lst = []
-	for i in range(l):
-		lst.append(random.randrange(0, h + 1))
-	return lst
+    lst = []
+    for i in range(l):
+        lst.append(random.randrange(0, h + 1))
+    return lst
 
+def test():
+    l1 = [1, 2, 3, 4, 5]
+    l2 = [1, 2, 3, 2, 1]
+    l3 = [3, 2, 1, 2, 3]
+    l4 = [6, 8, 6, 6, 9, 7, 10, 0, 2, 4]
+    l5 = [12, 93, 2, 34, 98, 1, 43, 7, 12, 3, 29, 0, 13, 45, 7, 9, 18, 34, 78, 12, 23, 30, 1, 12, 19, 2, 10]
+    assert answer(l1) == 0
+    assert answer(l2) == 0
+    assert answer(l3) == 4
+    assert answer(l4) == 12
+    assert answer(l5) == 1001
 
-l1 = [1, 2, 3, 4, 5]
-l2 = [1, 2, 3, 2, 1]
-l3 = [3, 2, 1, 2, 3]
-l4 = generate_list(10, 10)
-
-tests = []
-tests.append([l1, l2, l3])
-print("l1 should be 0")
-print("My l1 is: " + str(solve(l1)))
-print("")
-print("l2 should be 0")
-print("My l2 is: " + str(solve(l2)))
-print("")
-print("l3 should be 4")
-print("My l3 is: " + str(solve(l3)))
-print("")
-print("l4:")
-print(l4)
-print("l4 should be idk")
-print("My l4 is: " + str(solve(l4)))
-
-
-l5 = [6, 8, 6, 6, 9, 7, 10, 0, 2, 4]
-print(solve(l5))
+test()
 
 
 
