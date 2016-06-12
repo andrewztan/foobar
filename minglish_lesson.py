@@ -28,9 +28,29 @@ Inputs:
 Output:
     (string) "bac"
 """
+def get_first_letters(words):
+	if len(words) == 0:
+		return []
+	first_letters = []
+	first_letters.append(words[0][0])
+	for i in range(1, len(words)):
+		if words[i][0] != words[i - 1][0]:
+		first_letters.append(words[i][0]) 
+	return first_letters;
+
+def alphabet(words, dictionary):
+	first_letters = get_first_letters(words)
 
 def answer(words):
-	
+	return alphabet(words, [])
 
+def test():
+	words = ["z", "yx", "yz"]
+	assert answer(words) == "xzy"
+	words = ["y", "z", "xy"]
+	assert answer(words) == "yzx"
+	words = ["ba", "ab", "cb"]
+	assert answer(words) == "bac"
 
+test()
 
