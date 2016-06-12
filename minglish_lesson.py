@@ -35,11 +35,13 @@ def get_first_letters(words):
 	first_letters.append(words[0][0])
 	for i in range(1, len(words)):
 		if words[i][0] != words[i - 1][0]:
-		first_letters.append(words[i][0]) 
+			first_letters.append(words[i][0]) 
 	return first_letters;
 
 # similar to the merge part of merge sort
 def combine(lst1, lst2):
+	# print(lst1)
+	# print(lst2)
 	combined = []
 	i = 0
 	j = 0
@@ -47,20 +49,27 @@ def combine(lst1, lst2):
 
 	while i < len(lst1) and j < len(lst2):
 		if lst1[i] in lst2:
-			if lst2.lst1[i] < j:
-				combined[k] == lst1[i]
+			if lst2.index(lst1[i]) > j:
+				combined.append(lst2[j])
+				j += 1	
+			elif lst2.index(lst1[i]) == j:
+				combined.append(lst1[i])
 				i += 1
-			else:
-				combined[k] == lst2[j]
 				j += 1
+			else:
+				i += 1
 			k += 1
 		elif lst2[j] in lst1:
-			if lst1.lst2[i] < i:
-				combined[k] == lst2[j]
+			if lst1.index(lst2[i]) > i:
+				combined.append(lst1[i])
+				i += 1
+			elif lst1.index(lst2[i]) == j:
+				combined.append(lst1[i])
+				i += 1
 				j += 1
 			else:
-				combined[k] == lst1[i]
-				i += 1
+				combined.append(lst2[j])
+				j += 1
 			k += 1
 		else:
 			i += 1
@@ -70,28 +79,40 @@ def combine(lst1, lst2):
 		combined += lst1[i:]
 	if j < len(lst2):
 		combined += lst2[j:]
+	# print(combined)
 	return combined
 
 def alphabet(words, dictionary):
-	alphabet = []
 	first_letters = get_first_letters(words)
+	alphabet_list = combine(first_letters, dictionary)
 	if len(first_letters) == len(words):
-		return combine(first_letters, dictionary)
-	alphabet.append(first_letters[0])
-	next_search = [words[0][1:]]
+		return alphabet_list
+	next_words = [words[0][1:]]
 	for i in range(1, len(words)):
-		if words[i][]
+		if len(words[i]) > 1:
+			if words[i][0] == words[i-1][0]:
+				next_words.append(words[i][1:])
+			else:
+				if len(next_words) > 1:
+					alphabet_list = alphabet(next_words, alphabet_list)
+				next_words = [words[i][1:]]
+	# print(next_words)
+	if len(next_words) > 1:
+		# print(1)
+		alphabet_list = alphabet(next_words, alphabet_list)
+	return alphabet_list
 
 def answer(words):
 	alphabet_list = alphabet(words, [])
-	alphabet = ""
+	alphabet_string = ""
 	for letter in alphabet_list:
-		alphabet += letter
-	return alphabet
+		alphabet_string += letter
+	return alphabet_string
 
 
 def test():
 	words = ["z", "yx", "yz"]
+	# print(answer(words))
 	assert answer(words) == "xzy"
 	words = ["y", "z", "xy"]
 	assert answer(words) == "yzx"
