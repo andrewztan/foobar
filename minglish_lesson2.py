@@ -1,21 +1,21 @@
 def answer(words):
     # print(words)
-    graph = make_graph(words)
-    # print(graph)
-    start = start_vertex(graph)
+    g = make_g(words)
+    # print(g)
+    start = start_v(g)
     # print(start)
 
     letters = []
     seen = []
 
-    # DFS postorder graph traversal
-    def traverse(vertex):
-        if vertex not in seen:
-            seen.append(vertex)
-            if vertex in graph:
-                for edge in graph[vertex]:
-                    traverse(edge)
-            letters.append(vertex)
+    # DFS postorder g traversal
+    def traverse(v):
+        if v not in seen:
+            seen.append(v)
+            if v in g:
+                for e in g[v]:
+                    traverse(e)
+            letters.append(v)
 
     traverse(start)
 
@@ -31,36 +31,35 @@ def stringify(letters):
     # print(alphabet)
     return alphabet
 
-def make_graph(words):
-    graph = {}
+def make_g(words):
+    g = {}
     for i in range(1, len(words)):
-        pair = find_edge(words[i-1], words[i])
+        pair = make_e(words[i-1], words[i])
         # print(pair)
         if pair is not None:
-            vertex, edge = pair
-            if vertex in graph:
-                # add edge to vertex
-                graph[vertex].append(edge)
+            v, e = pair
+            if v in g:
+                # add e to v
+                g[v].append(e)
             else:
-                # create vertex, edge pair
-                graph[vertex] = [edge]
-    return graph
+                # create v, e pair
+                g[v] = [e]
+    return g
 
-
-def find_edge(a, b):
+def make_e(a, b):
     l = min(len(a), len(b))
     for i in range(l):
         if a[i] != b[i]:
             return a[i], b[i]
 
-def start_vertex(graph):
+def start_v(g):
     edges = []
-    for values in graph.values():
+    for values in g.values():
         for val in values:
             edges.append(val)
-    for vertex in graph:
-        if vertex not in edges:
-            return vertex
+    for v in g:
+        if v not in edges:
+            return v
 
 def test():
     words = ["z", "yx", "yz"]
