@@ -38,11 +38,41 @@ def get_first_letters(words):
 		first_letters.append(words[i][0]) 
 	return first_letters;
 
+# similar to the merge part of merge sort
+def combine(lst1, lst2):
+	combined = []
+	i = 0
+	j = 0
+	k = 0
+
+	while i < len(lst1) and j < len(lst2):
+		if lst1[i] in lst2:
+			if lst2.lst1[i] >
+		elif lst2[j] in lst1:
+
+	if i < len(lst1):
+		combined += lst1[i:]
+	if j < len(lst2):
+		combined += lst2[j:]
+	return combined
+
 def alphabet(words, dictionary):
+	alphabet = []
 	first_letters = get_first_letters(words)
+	if len(first_letters) == len(words):
+		return combine(first_letters, dictionary)
+	alphabet.append(first_letters[0])
+	next_search = [words[0][1:]]
+	for i in range(1, len(words)):
+		if words[i][]
 
 def answer(words):
-	return alphabet(words, [])
+	alphabet_list = alphabet(words, [])
+	alphabet = ""
+	for letter in alphabet_list:
+		alphabet += letter
+	return alphabet
+
 
 def test():
 	words = ["z", "yx", "yz"]
