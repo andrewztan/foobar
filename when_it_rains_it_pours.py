@@ -126,11 +126,11 @@ def test():
     l3 = [3, 2, 1, 2, 3]
     l4 = [6, 8, 6, 6, 9, 7, 10, 0, 2, 4]
     l5 = [12, 93, 2, 34, 98, 1, 43, 7, 12, 3, 29, 0, 13, 45, 7, 9, 18, 34, 78, 12, 23, 30, 1, 12, 19, 2, 10]
-    assert answer(l1) == 0
-    assert answer(l2) == 0
-    assert answer(l3) == 4
-    assert answer(l4) == 12
-    assert answer(l5) == 1001
+    assert 0 == answer(l1)
+    assert 0 == answer(l2)
+    assert 4 == answer(l3)
+    assert 12 == answer(l4) 
+    assert 1001 == answer(l5)
 
 
 test()
