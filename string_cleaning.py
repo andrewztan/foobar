@@ -29,12 +29,15 @@ Output:
 """
 
 def answer(chunk, word):
-    chunk = "lololololo"
-    word = "lol"
-    assert 
+
 
 def test():
-
+    chunk = "lololololo"
+    word = "lol"
+    assert "looo" == answer(chunk, word)
+    chunk = "goodgooogoogfogoood"
+    word = "goo"
+    assert "dogfood" == answer(chunk, word)
 
 
 test()
