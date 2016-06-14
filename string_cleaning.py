@@ -35,13 +35,8 @@ def answer(chunk, word):
         text = remove_word(chunk, word, i)
         if text not in possible:
             possible.append(text)
-    print(possible)
-    return sorted(possible)[0]
 
-def get_min_letters(chunk, word):
-    while word in chunk:
-        chunk = chunk.replace(word, '')
-    return len(chunk)
+    return sorted(possible)[0]
 
 def remove_word(chunk, word, start):
     """
@@ -61,8 +56,6 @@ def remove_word(chunk, word, start):
 def test():
     chunk = "lololololo"
     word = "lol"
-    assert 4 == get_min_letters(chunk, word)
-    print(answer(chunk, word))
     assert "looo" == answer(chunk, word)
     chunk = "goodgooogoogfogoood"
     word = "goo"
