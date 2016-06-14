@@ -30,6 +30,13 @@ Output:
 
 def answer(chunk, word):
 
+def replace(chunk, word, start):
+    """
+    Return starting index of first occurence of word from chunk.
+    Begin search from index start.
+    If there's no occurence of word, return -1.
+    """
+    
 
 def test():
     chunk = "lololololo"
