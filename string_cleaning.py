@@ -38,7 +38,8 @@ def answer(chunk, word):
 
 def remove_word(chunk, word, start):
     """
-    Remove all occurences of word beginning from index start.
+    Remove first occurence of word beginning from index start.
+    Then remove all remaining occurences.
     """
     if word not in chunk[start:]:
         return chunk  
@@ -47,7 +48,8 @@ def remove_word(chunk, word, start):
     index = chunk.find(word, start)
     chunk = chunk[:index] + chunk[index + l:]
     # remove remaning occurences
-    chunk = chunk.replace(word, '')
+    while word in chunk:
+        chunk = chunk.replace(word, '')
     return chunk
 
 
