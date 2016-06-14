@@ -33,8 +33,13 @@ def answer(chunk, word):
     # min_letters = get_min_letters(chunk, word)
 
     possible = []
-    find_word(chunk, word, start)
 
+    start = 0
+    for i in range(len(chunk) - len(word)):
+        text = remove_word(chunk, word, i)
+        if text not in possible:
+            possible.append(text)
+    print(possible)
     return sorted(possible)[0]
 
 def get_min_letters(chunk, word):
@@ -46,17 +51,22 @@ def remove_word(chunk, word, start):
     """
     Remove all occurences of word beginning from index start.
     """
-    subchunk = chunk[start:]
-    if word in subchunk:
-        index = subchunk.index(word)
-        return start + index
-    else:
-        return -1
+    l = len(word)
+
+    # remove first occurence beginning from index start
+    index = chunk.find(word, start)
+    text = chunk[:index] + chunk[index + l:]
+
+    # remove remaning occurences
+    text = text.replace(word, '')
+    return text
+
 
 def test():
     chunk = "lololololo"
     word = "lol"
     assert 4 == get_min_letters(chunk, word)
+    print(answer(chunk, word))
     assert "looo" == answer(chunk, word)
     chunk = "goodgooogoogfogoood"
     word = "goo"
