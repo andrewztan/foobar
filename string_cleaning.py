@@ -29,12 +29,8 @@ Output:
 """
 
 def answer(chunk, word):
-    l = len(word)
-    # min_letters = get_min_letters(chunk, word)
-
     possible = []
 
-    start = 0
     for i in range(len(chunk) - len(word)):
         text = remove_word(chunk, word, i)
         if text not in possible:
