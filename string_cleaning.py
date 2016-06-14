@@ -30,27 +30,25 @@ Output:
 
 def answer(chunk, word):
     possible = []
-
     for i in range(len(chunk) - len(word)):
         text = remove_word(chunk, word, i)
-        if text not in possible:
+        if text not in possible and text != chunk:
             possible.append(text)
-
     return sorted(possible)[0]
 
 def remove_word(chunk, word, start):
     """
     Remove all occurences of word beginning from index start.
     """
+    if word not in chunk[start:]:
+        return chunk  
     l = len(word)
-
     # remove first occurence beginning from index start
     index = chunk.find(word, start)
-    text = chunk[:index] + chunk[index + l:]
-
+    chunk = chunk[:index] + chunk[index + l:]
     # remove remaning occurences
-    text = text.replace(word, '')
-    return text
+    chunk = chunk.replace(word, '')
+    return chunk
 
 
 def test():
