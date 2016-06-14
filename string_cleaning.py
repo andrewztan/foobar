@@ -29,18 +29,34 @@ Output:
 """
 
 def answer(chunk, word):
+    l = len(word)
+    # min_letters = get_min_letters(chunk, word)
 
-def replace(chunk, word, start):
+    possible = []
+    find_word(chunk, word, start)
+
+    return sorted(possible)[0]
+
+def get_min_letters(chunk, word):
+    while word in chunk:
+        chunk = chunk.replace(word, '')
+    return len(chunk)
+
+def remove_word(chunk, word, start):
     """
-    Return starting index of first occurence of word from chunk.
-    Begin search from index start.
-    If there's no occurence of word, return -1.
+    Remove all occurences of word beginning from index start.
     """
-    
+    subchunk = chunk[start:]
+    if word in subchunk:
+        index = subchunk.index(word)
+        return start + index
+    else:
+        return -1
 
 def test():
     chunk = "lololololo"
     word = "lol"
+    assert 4 == get_min_letters(chunk, word)
     assert "looo" == answer(chunk, word)
     chunk = "goodgooogoogfogoood"
     word = "goo"
