@@ -67,5 +67,4 @@ def test():
     word = "lol"
     assert "lo" == answer(chunk, word)
 
-
 test()
