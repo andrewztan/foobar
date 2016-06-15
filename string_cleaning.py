@@ -60,6 +60,12 @@ def test():
     chunk = "goodgooogoogfogoood"
     word = "goo"
     assert "dogfood" == answer(chunk, word)
+    chunk = "aabb"
+    word = "ab"
+    assert "" == answer(chunk, word)
+    chunk = "lolol"
+    word = "lol"
+    assert "lo" == answer(chunk, word)
 
 
 test()
