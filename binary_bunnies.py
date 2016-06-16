@@ -12,12 +12,6 @@ For example, if the rabbits were processed in order from [5, 9, 8, 2, 1], it wou
 
 You must write a function answer(seq) that takes an array of up to 50 integers and returns a string representing the number (in base-10) of sequences that would result in the same tree as the given sequence.
 
-Languages
-=========
-
-To provide a Python solution, edit solution.py
-To provide a Java solution, edit solution.java
-
 Test cases
 ==========
 
