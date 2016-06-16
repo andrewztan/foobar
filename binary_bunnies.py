@@ -25,3 +25,16 @@ Inputs:
 Output:
     (string) "1"
 """
+
+def answer(seq):
+
+
+
+def test():
+	seq = [5, 9, 8, 2, 1]
+	assert 6 == answer(seq)
+	seq = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	assert 1 == answer(seq)
+
+
+test()
