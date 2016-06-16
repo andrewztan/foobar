@@ -47,7 +47,7 @@ def remove_word(chunk, word, start):
     # remove first occurence beginning from index start
     index = chunk.find(word, start)
     chunk = chunk[:index] + chunk[index + l:]
-    # remove remaning occurences
+    # remove remaining occurences
     while word in chunk:
         chunk = chunk.replace(word, '')
     return chunk
