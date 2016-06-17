@@ -31,14 +31,17 @@ def answer(seq):
 	Question basically asks for how many different DAGs (directed acyclic graphs) can be created.
 	Directions of graph depends on the binary tree. There exists an arrow from each parent to child pair.
 	"""
+	return
 
 
 
 def test():
 	seq = [5, 9, 8, 2, 1]
-	assert 6 == answer(seq)
+	assert '6' == answer(seq)
 	seq = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-	assert 1 == answer(seq)
+	assert '1' == answer(seq)
+	seq = [5, 9, 8, 2, 1, 10]
+	assert '20' == answer(seq)
 
 
 test()
