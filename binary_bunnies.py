@@ -27,6 +27,10 @@ Output:
 """
 
 def answer(seq):
+	"""
+	Question basically asks for how many different DAGs (directed acyclic graphs) can be created.
+	Directions of graph depends on the binary tree. There exists an arrow from each parent to child pair.
+	"""
 
 
 
