@@ -24,24 +24,89 @@ Inputs:
     (int list) seq = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 Output:
     (string) "1"
+
+
+
+Inputs:
+    (int list) seq = [5, 9, 8, 2, 1]
+Output:
+    (string) "6"
+
+            5
+          /   \
+         2     9
+        /     /
+       1     8 
 """
 
+import math
+
+class BST:
+
+    def __init__(self, *items):
+        self.root = None
+        self.left = None
+        self.right = None
+        for i in items:
+            self.add(i)
+
+    def add(self, item):
+        if not self.root:
+            self.root = item
+        elif item < self.root:
+            if self.left:
+                self.left.add(item)
+            else:
+                self.left = BST(item)
+        else:
+            if self.right:
+                self.right.add(item)
+            else:
+                self.right = BST(item)
+
+
+def permutate(t):
+    if not t:
+        return 1
+    left_count = count(t.left)
+    right_count = count(t.right)
+
+    left_permutation = permutate(t.left)
+    right_permutation = permutate(t.right)
+    # print(left_permutation)
+    # print(right_permutation)
+    # print(left_count)
+    # print(right_count)
+    # print(nCr(left_count + right_count, left_count))
+    return nCr(left_count + right_count, left_count) * left_permutation * right_permutation
+
+def nCr(n, r):
+    f = math.factorial
+    return f(n) / f(r) / f(n-r)
+
+def count(t):
+    if not t:
+        return 0
+    # print(123)
+    return 1 + count(t.left) + count(t.right)
+
 def answer(seq):
-	"""
-	Question basically asks for how many different DAGs (directed acyclic graphs) can be created.
-	Directions of graph depends on the binary tree. There exists an arrow from each parent to child pair.
-	"""
-	return
+    """
+    Solution finds the number of different DAGs (directed acyclic graphs) can be created.
+    Directions of graph depends on the binary tree. There exists an arrow from each parent to child pair.
+    """
+    # print(permutate(BST(seq)))
+    return str(permutate(BST(*seq)))
 
 
 
 def test():
-	seq = [5, 9, 8, 2, 1]
-	assert '6' == answer(seq)
-	seq = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-	assert '1' == answer(seq)
-	seq = [5, 9, 8, 2, 1, 10]
-	assert '20' == answer(seq)
+    seq = [5, 9, 8, 2, 1]
+    assert '6' == answer(seq)
+    seq = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    assert '1' == answer(seq)
+    seq = [5, 9, 8, 2, 1, 10]
+    assert '20' == answer(seq)
 
 
 test()
