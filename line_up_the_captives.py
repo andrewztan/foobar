@@ -40,4 +40,70 @@ Output:
 """
 
 def answer(x, y, n):
-    # your code here
+    return str(solve(x, y, n))
+
+def solve(x, y, n):
+    if x + y > n + 1 or (x == 1 and y == 1):
+        return 0:
+    if x + y == n + 1:
+        if x == n or y == n:
+            return 1
+        else:
+            return n - x + n - y
+    a = min(x, y)
+    b = max(x, y)
+
+
+
+
+
+
+def test():
+    x = 1
+    y = 1
+    n = 1
+    assert "1" = answer(x, y, n)
+    x = 1
+    y = 1
+    n = 3
+    assert "0" = answer(x, y, n)
+    x = 1
+    y = 2
+    n = 3
+    assert "1" = answer(x, y, n)
+    x = 1
+    y = 3
+    n = 3
+    assert "1" = answer(x, y, n)
+    x = 2
+    y = 2
+    n = 3
+    assert "2" = answer(x, y, n)
+    x = 2
+    y = 3
+    n = 3
+    assert "0" = answer(x, y, n)
+    x = 3
+    y = 3
+    n = 3
+    assert "0" = answer(x, y, n)
+    x = 1
+    y = 2
+    n = 6
+    assert "24" = answer(x, y, n)
+    x = 2
+    y = 3
+    n = 5
+    assert "8" = answer(x, y, n)
+    x = 3
+    y = 3
+    n = 5
+    assert "4" = answer(x, y, n)
+    x = 2
+    y = 3
+    n = 4
+    assert "3" = answer(x, y, n)
+
+
+
+test()
