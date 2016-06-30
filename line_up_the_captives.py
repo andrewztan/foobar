@@ -39,35 +39,69 @@ Output:
     (string) "24"
 """
 
-import math.factorial
+from math import factorial
+
+cache = {}
 
 def answer(x, y, n):
-    return str(solve(x, y, n))
-
-def solve(x, y, n):
-    if x + y > n + 1 or (x == 1 and y == 1):
-        return 0
+    # return str(solve(x, y, n))
+    if x + y > n + 1 or (x == 1 and y == 1 and n != 1):
+        return str(0)
     if x + y == n + 1:
         if x == n or y == n:
-            return 1
+            return str(1)
         else:
-            return n - x + n - y
+            return str(n - x + n - y)
     a = min(x, y)
     b = max(x, y)
+    sets = x + y - 2
+    return str(int(solve_one_side(sets, n - 1) * nCr(sets, x - 1)))
 
 def nCr(n, r):
     f = factorial
     return f(n) / f(r) / f(n-r)
+
+def solve_one_side(x, n):
+    if x > n:
+        return 0
+    elif x == 1:
+        return factorial(n - 1)
+    elif x == n:
+        return 1
+    elif x + 1 == n:
+        return nCr(n, 2)
+
+    # start = x
+    # end = n
+    # r = n - x
+    # total = 0
+    # for i in range(start, end + 1):
+    #     total += solve_one_side(x - 1, i - 1) * nCr(n - 1, i - 1) * factorial(n - i)
+    # return total
+
+    return mem((x, n), lambda: solve_one_side(x - 1, n - 1) + solve_one_side(x, n - 1) * (n - 1))
+
+def mem(k, f):
+    if k not in cache:
+        cache[k] = f()
+    return cache[k]
 
 
 def test():
     x = 1
     y = 1
     n = 1
+    print(answer(x, y, n))
     assert "1" == answer(x, y, n)
+    x = 1
+    y = 2
+    n = 6
+    print(answer(x, y, n))
+    assert "24" == answer(x, y, n)
     x = 1
     y = 1
     n = 3
+    print(answer(x, y, n))
     assert "0" == answer(x, y, n)
     x = 1
     y = 2
@@ -89,14 +123,6 @@ def test():
     y = 3
     n = 3
     assert "0" == answer(x, y, n)
-    x = 1
-    y = 2
-    n = 6
-    assert "24" == answer(x, y, n)
-    x = 2
-    y = 3
-    n = 5
-    assert "8" == answer(x, y, n)
     x = 3
     y = 3
     n = 5
@@ -106,23 +132,8 @@ def test():
     n = 4
     assert "3" == answer(x, y, n)
 
-def solve_one_side(x, n):
-    if x > n:
-        return 0
-    elif x == 1:
-        return factorial(n - 1)
-    elif x == n:
-        return 1
 
-    start = x
-    end = n
-    r = n - x
-    total = 0
-    for i in range(start, end + 1):
-        total += solve_one_side(x - 1, i - 1) * nCr(n - 1, i - 1) * factorial(n - i)
-    return total
-
-# test()
+test()
 def test_one_side():
     x = 1
     n = 1
