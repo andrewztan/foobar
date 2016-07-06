@@ -71,20 +71,17 @@ def solve_one_side(x, n):
     elif x + 1 == n:
         return nCr(n, 2)
 
-    # start = x
-    # end = n
-    # r = n - x
-    # total = 0
-    # for i in range(start, end + 1):
-    #     total += solve_one_side(x - 1, i - 1) * nCr(n - 1, i - 1) * factorial(n - i)
-    # return total
-
-    return mem((x, n), lambda: solve_one_side(x - 1, n - 1) + solve_one_side(x, n - 1) * (n - 1))
-
-def mem(k, f):
+    # memoization
+    k = (x, n)
     if k not in cache:
-        cache[k] = f()
+        cache[k] = solve_one_side(x - 1, n - 1) + solve_one_side(x, n - 1) * (n - 1)
     return cache[k]
+    # return mem((x, n), lambda: solve_one_side(x - 1, n - 1) + solve_one_side(x, n - 1) * (n - 1))
+
+# def mem(k, f):
+#     if k not in cache:
+#         cache[k] = f()
+#     return cache[k]
 
 
 def test():
