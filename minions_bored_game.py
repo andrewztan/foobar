@@ -38,3 +38,15 @@ Inputs:
 Output:
     (int) 3
 """
+
+def answer(t, n):
+
+
+def test():
+    t = 1
+    n = 2
+    assert 1 == answer(t, n)
+    t = 3
+    n = 2
+    assert 3 == answer(t, n)
+
