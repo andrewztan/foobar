@@ -39,14 +39,60 @@ Output:
     (int) 3
 """
 
-def answer(t, n):
+cache = {}
+
+def answer2(t, n):
+    return games(t, n, 1) % 123454321
+
+def games(t, n, p):
+    k = (t, n, p)
+    if k in cache:
+        return cache[k]
+
+    if t < 1 or p < 1:
+        return 0
+    right = n - p
+    if right == 0:
+        return 1
+    
+    rolls = 0
+    
+    rolls += games(t - 1, n, p + 1)
+
+    if p > 1:
+        rolls += games(t - 1, n, p - 1)
+
+    rolls += games(t - 1, n, p)
+    
+    # rolls = rolls % 123454321
+    cache[k] = rolls
+    print(rolls)
+    return rolls
+
+
+# def answer(t, n):
+#     board = [0] * (n + 1)
+#     board[1] = 1
+#     for i in range(t):
+#         mx = max(1, n - t + i)
+#         temp = [0] * (n + 1)
+#         temp[n] = board[n]
+#         for j in range(mx, n):
+#             temp[j - 1] += board[j]
+#             temp[j] += board[j]
+#             temp[j + 1] += board[j]
+#         board = temp
+#     rolls = board[n]
+#     return rolls % 123454321
 
 
 def test():
     t = 1
     n = 2
-    assert 1 == answer(t, n)
+    assert 1 == answer2(t, n)
     t = 3
     n = 2
     assert 3 == answer(t, n)
 
+
+test()
